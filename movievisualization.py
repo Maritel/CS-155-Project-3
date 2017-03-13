@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from adjustText import adjust_text
 
-B_proj = np.load('B_proj.npy')
+proj = np.load('proj.npy')
 
 
 # just a test
@@ -14,7 +14,7 @@ def basic_scatterplot(matrix):
     plt.show()
 
 
-def random_movies(matrix, n_movies=10):
+def random_movies(matrix=proj, n_movies=10):
     movie_titles = np.load('data/movie_titles.npy')
     movie_titles = [''.join(chr(c) for  c in title) for title in movie_titles]
     movie_titles = [title.strip("\"") for title in movie_titles]
@@ -42,9 +42,9 @@ def ten_best():
     movie_titles = np.load('data/movie_titles.npy')
     movie_titles = [''.join(chr(c) for  c in title) for title in movie_titles]
     movie_titles = [title.strip("\"") for title in movie_titles]
-    assert len(movie_titles) == B_proj.shape[1]
+    assert len(movie_titles) == proj.shape[1]
 
-    movie_projs = B_proj[:, best_indices]
+    movie_projs = proj[:, best_indices]
     movie_names = [movie_titles[i] for i in best_indices]
 
     fig, ax = plt.subplots()
@@ -64,9 +64,9 @@ def ten_popular():
     movie_titles = np.load('data/movie_titles.npy')
     movie_titles = [''.join(chr(c) for  c in title) for title in movie_titles]
     movie_titles = [title.strip("\"") for title in movie_titles]
-    assert len(movie_titles) == B_proj.shape[1]
+    assert len(movie_titles) == proj.shape[1]
 
-    movie_projs = B_proj[:, popular_indices]
+    movie_projs = proj[:, popular_indices]
     movie_names = [movie_titles[i] for i in popular_indices]
 
     fig, ax = plt.subplots()
@@ -81,4 +81,6 @@ def ten_popular():
     plt.title('Projections: 10 Most Popular Movies')
     plt.savefig('5-2-b.png')
 
+random_movies(proj, 10)
+ten_best()
 ten_popular()
